@@ -3,1484 +3,815 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rytux</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Rytux - The Future of Roblox Exploits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ADDED THIS FOR FULL HEIGHT ASSURANCE */
-        html, body {
-            height: 100%;
+        /* General Reset & Base Styles */
+        * {
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Prevents scrollbars during loading screen */
+            box-sizing: border-box;
         }
-
-        /* --- THEME BASE VARIABLES (These are the *default* theme values) --- */
-        :root {
-            /* Global Colors */
-            --theme-bg-primary: #0a001a; /* Very dark purplish-blue (deep galaxy) */
-            --theme-bg-secondary: #2b004d; /* Darker vibrant purple */
-            --theme-bg-tertiary: #5f00a8; /* Muted brighter purple */
-
-            --theme-text-color: #e6f1f5; /* Off-white for general text */
-            --theme-heading-color: #f0f8ff; /* Near white for headings */
-
-            --theme-accent-primary: #00ffcc; /* Bright aqua for main accent */
-            --theme-accent-secondary: #ff00ff; /* Electric magenta for secondary accent */
-            --theme-accent-tertiary: #00ccff; /* Bright sky blue for tertiary accent */
-
-            /* Panel/Section Colors */
-            --theme-panel-bg: rgba(255, 255, 255, 0.04); /* Subtle white for frosted glass */
-            --theme-border-color: rgba(170, 220, 255, 0.18); /* Light blue border for panels */
-            --theme-shadow-color: rgba(0, 0, 0, 0.25); /* Medium shadow */
-            --theme-glow-color: rgba(0, 255, 204, 0.7); /* Aqua glow */
-            --theme-link-hover: var(--theme-accent-primary);
-
-            /* Status Box (Working) */
-            --theme-status-bg: rgba(0, 255, 0, 0.1);
-            --theme-status-border: rgba(0, 255, 0, 0.3);
-            --theme-status-text: #00ff00; /* Bright green text */
-            --theme-status-shadow: rgba(0, 255, 0, 0.3);
-
-            /* Loading Screen Specific Colors */
-            --theme-ls-bg-start: #000033; /* Dark blue */
-            --theme-ls-bg-mid: #330066; /* Dark purple */
-            --theme-ls-bg-end: #660099; /* Medium purple */
-            --theme-ls-logo-color: #ff33ff; /* Bright Neon Pink */
-            --theme-ls-text-color: #00ffcc; /* Bright Neon Green/Aqua */
-            --theme-ls-glow-main: rgba(255, 51, 255, 0.8); /* Neon Pink Glow */
-            --theme-ls-glow-secondary: rgba(0, 255, 204, 0.7); /* Neon Green/Aqua Glow */
-            --theme-ls-glow-tertiary: rgba(255, 255, 51, 0.9); /* Strong Neon Yellow Glow */
-            --theme-progress-start: var(--theme-ls-text-color);
-            --theme-progress-end: var(--theme-ls-glow-tertiary);
-        }
-
-        /* --- THEME DEFINITIONS (Override base variables) --- */
-
-        /* Dark Mode (Subtle) */
-        body.theme-dark-subtle {
-            --theme-bg-primary: #1a1a2e;
-            --theme-bg-secondary: #2c2c47;
-            --theme-bg-tertiary: #404060;
-            --theme-text-color: #c0c0d8;
-            --theme-heading-color: #e0e0f8;
-            --theme-accent-primary: #8aa6ff; /* Soft blue */
-            --theme-accent-secondary: #a6c0ff;
-            --theme-accent-tertiary: #c0d8ff;
-            --theme-panel-bg: rgba(255, 255, 255, 0.08);
-            --theme-border-color: rgba(138, 166, 255, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(138, 166, 255, 0.6);
-            --theme-status-bg: rgba(30, 200, 30, 0.15);
-            --theme-status-border: rgba(30, 200, 30, 0.4);
-            --theme-status-text: #66ff66;
-            --theme-status-shadow: rgba(30, 200, 30, 0.4);
-            --theme-ls-bg-start: #1c1c30; --theme-ls-bg-mid: #2c2c40; --theme-ls-bg-end: #3c3c50;
-            --theme-ls-logo-color: #8aa6ff; --theme-ls-text-color: #c0d8ff;
-            --theme-ls-glow-main: rgba(138, 166, 255, 0.7); --theme-ls-glow-secondary: rgba(166, 192, 255, 0.6); --theme-ls-glow-tertiary: rgba(192, 216, 255, 0.9);
-        }
-
-        /* Light Mode (Clean) */
-        body.theme-light-clean {
-            --theme-bg-primary: #f0f2f5;
-            --theme-bg-secondary: #ffffff;
-            --theme-bg-tertiary: #e0e2e5;
-            --theme-text-color: #333333;
-            --theme-heading-color: #1a1a1a;
-            --theme-accent-primary: #007bff; /* Bright blue */
-            --theme-accent-secondary: #0056b3;
-            --theme-accent-tertiary: #6c757d;
-            --theme-panel-bg: rgba(255, 255, 255, 0.8);
-            --theme-border-color: rgba(0, 123, 255, 0.2);
-            --theme-shadow-color: rgba(0, 0, 0, 0.1);
-            --theme-glow-color: rgba(0, 123, 255, 0.3);
-            --theme-status-bg: rgba(40, 167, 69, 0.1);
-            --theme-status-border: rgba(40, 167, 69, 0.2);
-            --theme-status-text: #28a745;
-            --theme-status-shadow: rgba(40, 167, 69, 0.2);
-            --theme-ls-bg-start: #f0f2f5; --theme-ls-bg-mid: #e0e2e5; --theme-ls-bg-end: #d0d2d5;
-            --theme-ls-logo-color: #007bff; --theme-ls-text-color: #333333;
-            --theme-ls-glow-main: rgba(0, 123, 255, 0.5); --theme-ls-glow-secondary: rgba(0, 86, 179, 0.4); --theme-ls-glow-tertiary: rgba(0, 123, 255, 0.7);
-        }
-
-        /* Retro Green/Black (Matrix-like) */
-        body.theme-matrix-neon {
-            --theme-bg-primary: #000000;
-            --theme-bg-secondary: #0a0a0a;
-            --theme-bg-tertiary: #1a1a1a;
-            --theme-text-color: #00ff00; /* Bright green */
-            --theme-heading-color: #33ff33;
-            --theme-accent-primary: #00cc00;
-            --theme-accent-secondary: #009900;
-            --theme-accent-tertiary: #006600;
-            --theme-panel-bg: rgba(0, 255, 0, 0.05);
-            --theme-border-color: rgba(0, 255, 0, 0.2);
-            --theme-shadow-color: rgba(0, 255, 0, 0.15);
-            --theme-glow-color: rgba(0, 255, 0, 0.8);
-            --theme-status-bg: rgba(0, 150, 0, 0.2);
-            --theme-status-border: rgba(0, 200, 0, 0.4);
-            --theme-status-text: #00ff00;
-            --theme-status-shadow: rgba(0, 255, 0, 0.5);
-            --theme-ls-bg-start: #000000; --theme-ls-bg-mid: #0a0a0a; --theme-ls-bg-end: #1a1a1a;
-            --theme-ls-logo-color: #00ff00; --theme-ls-text-color: #00cc00;
-            --theme-ls-glow-main: rgba(0, 255, 0, 0.9); --theme-ls-glow-secondary: rgba(0, 204, 0, 0.8); --theme-ls-glow-tertiary: rgba(0, 255, 0, 1);
-        }
-
-        /* Ocean Blue */
-        body.theme-ocean-blue {
-            --theme-bg-primary: #011627;
-            --theme-bg-secondary: #082d49;
-            --theme-bg-tertiary: #124559;
-            --theme-text-color: #c9e2f0;
-            --theme-heading-color: #dbeaf5;
-            --theme-accent-primary: #41e2ba; /* Teal */
-            --theme-accent-secondary: #2a9d8f;
-            --theme-accent-tertiary: #7c7287;
-            --theme-panel-bg: rgba(65, 226, 186, 0.08);
-            --theme-border-color: rgba(65, 226, 186, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.3);
-            --theme-glow-color: rgba(65, 226, 186, 0.7);
-            --theme-status-bg: rgba(65, 226, 186, 0.15);
-            --theme-status-border: rgba(65, 226, 186, 0.4);
-            --theme-status-text: #41e2ba;
-            --theme-status-shadow: rgba(65, 226, 186, 0.5);
-            --theme-ls-bg-start: #011627; --theme-ls-bg-mid: #082d49; --theme-ls-bg-end: #124559;
-            --theme-ls-logo-color: #41e2ba; --theme-ls-text-color: #c9e2f0;
-            --theme-ls-glow-main: rgba(65, 226, 186, 0.7); --theme-ls-glow-secondary: rgba(42, 157, 143, 0.6); --theme-ls-glow-tertiary: rgba(65, 226, 186, 0.9);
-        }
-
-        /* Volcanic Red/Black */
-        body.theme-volcanic-red {
-            --theme-bg-primary: #100505;
-            --theme-bg-secondary: #2b0b0b;
-            --theme-bg-tertiary: #471111;
-            --theme-text-color: #fcebeb;
-            --theme-heading-color: #ffe0e0;
-            --theme-accent-primary: #e63946; /* Vibrant Red */
-            --theme-accent-secondary: #a80f1e;
-            --theme-accent-tertiary: #b6b0b0;
-            --theme-panel-bg: rgba(230, 57, 70, 0.08);
-            --theme-border-color: rgba(230, 57, 70, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(230, 57, 70, 0.7);
-            --theme-status-bg: rgba(200, 50, 50, 0.15);
-            --theme-status-border: rgba(200, 50, 50, 0.4);
-            --theme-status-text: #ff5555;
-            --theme-status-shadow: rgba(230, 57, 70, 0.5);
-            --theme-ls-bg-start: #100505; --theme-ls-bg-mid: #2b0b0b; --theme-ls-bg-end: #471111;
-            --theme-ls-logo-color: #e63946; --theme-ls-text-color: #fcebeb;
-            --theme-ls-glow-main: rgba(230, 57, 70, 0.8); --theme-ls-glow-secondary: rgba(168, 15, 30, 0.7); --theme-ls-glow-tertiary: rgba(230, 57, 70, 0.9);
-        }
-
-        /* Forest Green */
-        body.theme-forest-green {
-            --theme-bg-primary: #0f1c12;
-            --theme-bg-secondary: #2a3d2e;
-            --theme-bg-tertiary: #4c6651;
-            --theme-text-color: #ebf5ee;
-            --theme-heading-color: #e0f0e5;
-            --theme-accent-primary: #4CAF50; /* Green */
-            --theme-accent-secondary: #388E3C;
-            --theme-accent-tertiary: #A5D6A7;
-            --theme-panel-bg: rgba(76, 175, 80, 0.08);
-            --theme-border-color: rgba(76, 175, 80, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.3);
-            --theme-glow-color: rgba(76, 175, 80, 0.7);
-            --theme-status-bg: rgba(76, 175, 80, 0.15);
-            --theme-status-border: rgba(76, 175, 80, 0.4);
-            --theme-status-text: #66bb6a;
-            --theme-status-shadow: rgba(76, 175, 80, 0.5);
-            --theme-ls-bg-start: #0f1c12; --theme-ls-bg-mid: #2a3d2e; --theme-ls-bg-end: #4c6651;
-            --theme-ls-logo-color: #4CAF50; --theme-ls-text-color: #ebf5ee;
-            --theme-ls-glow-main: rgba(76, 175, 80, 0.8); --theme-ls-glow-secondary: rgba(56, 142, 60, 0.7); --theme-ls-glow-tertiary: rgba(76, 175, 80, 0.9);
-        }
-
-        /* Cyberpunk (Purple/Teal/Yellow) */
-        body.theme-cyberpunk {
-            --theme-bg-primary: #1a0f2b;
-            --theme-bg-secondary: #3b1764;
-            --theme-bg-tertiary: #5d259c;
-            --theme-text-color: #e0faff;
-            --theme-heading-color: #d0f0ff;
-            --theme-accent-primary: #00e5ff; /* Bright Teal */
-            --theme-accent-secondary: #ff00ff; /* Bright Magenta */
-            --theme-accent-tertiary: #ffff00; /* Bright Yellow */
-            --theme-panel-bg: rgba(0, 229, 255, 0.06);
-            --theme-border-color: rgba(0, 229, 255, 0.2);
-            --theme-shadow-color: rgba(0, 0, 0, 0.35);
-            --theme-glow-color: rgba(0, 229, 255, 0.7);
-            --theme-status-bg: rgba(255, 255, 0, 0.15);
-            --theme-status-border: rgba(255, 255, 0, 0.4);
-            --theme-status-text: #ffff00;
-            --theme-status-shadow: rgba(255, 255, 0, 0.5);
-            --theme-ls-bg-start: #1a0f2b; --theme-ls-bg-mid: #3b1764; --theme-ls-bg-end: #5d259c;
-            --theme-ls-logo-color: #00e5ff; --theme-ls-text-color: #ff00ff;
-            --theme-ls-glow-main: rgba(0, 229, 255, 0.8); --theme-ls-glow-secondary: rgba(255, 0, 255, 0.7); --theme-ls-glow-tertiary: rgba(255, 255, 0, 0.9);
-        }
-
-        /* Minimal White */
-        body.theme-minimal-white {
-            --theme-bg-primary: #fdfdfd;
-            --theme-bg-secondary: #ffffff;
-            --theme-bg-tertiary: #f0f0f0;
-            --theme-text-color: #555555;
-            --theme-heading-color: #333333;
-            --theme-accent-primary: #2196F3; /* Blue */
-            --theme-accent-secondary: #1976D2;
-            --theme-accent-tertiary: #9E9E9E;
-            --theme-panel-bg: rgba(255, 255, 255, 0.9);
-            --theme-border-color: rgba(33, 150, 243, 0.1);
-            --theme-shadow-color: rgba(0, 0, 0, 0.05);
-            --theme-glow-color: rgba(33, 150, 243, 0.2);
-            --theme-status-bg: rgba(76, 175, 80, 0.1);
-            --theme-status-border: rgba(76, 175, 80, 0.2);
-            --theme-status-text: #4CAF50;
-            --theme-status-shadow: rgba(76, 175, 80, 0.1);
-            --theme-ls-bg-start: #fdfdfd; --theme-ls-bg-mid: #ffffff; --theme-ls-bg-end: #f0f0f0;
-            --theme-ls-logo-color: #2196F3; --theme-ls-text-color: #555555;
-            --theme-ls-glow-main: rgba(33, 150, 243, 0.6); --theme-ls-glow-secondary: rgba(25, 118, 210, 0.5); --theme-ls-glow-tertiary: rgba(33, 150, 243, 0.7);
-        }
-
-        /* Autumn Gold/Brown */
-        body.theme-autumn-gold {
-            --theme-bg-primary: #38271a;
-            --theme-bg-secondary: #5e4733;
-            --theme-bg-tertiary: #876d4c;
-            --theme-text-color: #fbeedc;
-            --theme-heading-color: #faebd7;
-            --theme-accent-primary: #d4a74b; /* Gold */
-            --theme-accent-secondary: #b8860b;
-            --theme-accent-tertiary: #f5deb3;
-            --theme-panel-bg: rgba(212, 167, 75, 0.08);
-            --theme-border-color: rgba(212, 167, 75, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.3);
-            --theme-glow-color: rgba(212, 167, 75, 0.7);
-            --theme-status-bg: rgba(184, 134, 11, 0.15);
-            --theme-status-border: rgba(184, 134, 11, 0.4);
-            --theme-status-text: #daa520;
-            --theme-status-shadow: rgba(212, 167, 75, 0.5);
-            --theme-ls-bg-start: #38271a; --theme-ls-bg-mid: #5e4733; --theme-ls-bg-end: #876d4c;
-            --theme-ls-logo-color: #d4a74b; --theme-ls-text-color: #fbeedc;
-            --theme-ls-glow-main: rgba(212, 167, 75, 0.8); --theme-ls-glow-secondary: rgba(184, 134, 11, 0.7); --theme-ls-glow-tertiary: rgba(245, 222, 179, 0.9);
-        }
-
-        /* Pastel Dream */
-        body.theme-pastel-dream {
-            --theme-bg-primary: #e0f2f7;
-            --theme-bg-secondary: #f0faff;
-            --theme-bg-tertiary: #d0eef5;
-            --theme-text-color: #6a8e9e;
-            --theme-heading-color: #4a6e7e;
-            --theme-accent-primary: #a7d9f7; /* Light Blue */
-            --theme-accent-secondary: #b3e0ff; /* Pale Blue */
-            --theme-accent-tertiary: #d7eafb;
-            --theme-panel-bg: rgba(255, 255, 255, 0.7);
-            --theme-border-color: rgba(167, 217, 247, 0.3);
-            --theme-shadow-color: rgba(0, 0, 0, 0.08);
-            --theme-glow-color: rgba(167, 217, 247, 0.4);
-            --theme-status-bg: rgba(170, 255, 170, 0.2);
-            --theme-status-border: rgba(170, 255, 170, 0.4);
-            --theme-status-text: #90ee90;
-            --theme-status-shadow: rgba(170, 255, 170, 0.3);
-            --theme-ls-bg-start: #e0f2f7; --theme-ls-bg-mid: #f0faff; --theme-ls-bg-end: #d0eef5;
-            --theme-ls-logo-color: #a7d9f7; --theme-ls-text-color: #6a8e9e;
-            --theme-ls-glow-main: rgba(167, 217, 247, 0.6); --theme-ls-glow-secondary: rgba(179, 224, 255, 0.5); --theme-ls-glow-tertiary: rgba(215, 234, 251, 0.7);
-        }
-
-        /* Monochrome */
-        body.theme-monochrome {
-            --theme-bg-primary: #222222;
-            --theme-bg-secondary: #333333;
-            --theme-bg-tertiary: #444444;
-            --theme-text-color: #cccccc;
-            --theme-heading-color: #f0f0f0;
-            --theme-accent-primary: #888888;
-            --theme-accent-secondary: #aaaaaa;
-            --theme-accent-tertiary: #dddddd;
-            --theme-panel-bg: rgba(255, 255, 255, 0.03);
-            --theme-border-color: rgba(200, 200, 200, 0.1);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(200, 200, 200, 0.3);
-            --theme-status-bg: rgba(100, 100, 100, 0.15);
-            --theme-status-border: rgba(150, 150, 150, 0.4);
-            --theme-status-text: #bbbbbb;
-            --theme-status-shadow: rgba(100, 100, 100, 0.5);
-            --theme-ls-bg-start: #222222; --theme-ls-bg-mid: #333333; --theme-ls-bg-end: #444444;
-            --theme-ls-logo-color: #888888; --theme-ls-text-color: #cccccc;
-            --theme-ls-glow-main: rgba(150, 150, 150, 0.7); --theme-ls-glow-secondary: rgba(170, 170, 170, 0.6); --theme-ls-glow-tertiary: rgba(200, 200, 200, 0.9);
-        }
-
-        /* Sunset Glow */
-        body.theme-sunset-glow {
-            --theme-bg-primary: #280a2d;
-            --theme-bg-secondary: #4a154e;
-            --theme-bg-tertiary: #6d2071;
-            --theme-text-color: #fcebeb;
-            --theme-heading-color: #ffe0e0;
-            --theme-accent-primary: #ff6f61; /* Coral */
-            --theme-accent-secondary: #ff914d; /* Orange */
-            --theme-accent-tertiary: #ffc34d; /* Yellow */
-            --theme-panel-bg: rgba(255, 111, 97, 0.08);
-            --theme-border-color: rgba(255, 111, 97, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.3);
-            --theme-glow-color: rgba(255, 111, 97, 0.7);
-            --theme-status-bg: rgba(255, 145, 77, 0.15);
-            --theme-status-border: rgba(255, 145, 77, 0.4);
-            --theme-status-text: #ff914d;
-            --theme-status-shadow: rgba(255, 111, 97, 0.5);
-            --theme-ls-bg-start: #280a2d; --theme-ls-bg-mid: #4a154e; --theme-ls-bg-end: #6d2071;
-            --theme-ls-logo-color: #ff6f61; --theme-ls-text-color: #ff914d;
-            --theme-ls-glow-main: rgba(255, 111, 97, 0.8); --theme-ls-glow-secondary: rgba(255, 145, 77, 0.7); --theme-ls-glow-tertiary: rgba(255, 195, 77, 0.9);
-        }
-
-        /* Deep Purple */
-        body.theme-deep-purple {
-            --theme-bg-primary: #1e0030;
-            --theme-bg-secondary: #3b0060;
-            --theme-bg-tertiary: #5d0090;
-            --theme-text-color: #e6e0f0;
-            --theme-heading-color: #f0e0ff;
-            --theme-accent-primary: #9b59b6; /* Amethyst */
-            --theme-accent-secondary: #8e44ad;
-            --theme-accent-tertiary: #bdc3c7;
-            --theme-panel-bg: rgba(155, 89, 182, 0.08);
-            --theme-border-color: rgba(155, 89, 182, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.3);
-            --theme-glow-color: rgba(155, 89, 182, 0.7);
-            --theme-status-bg: rgba(155, 89, 182, 0.15);
-            --theme-status-border: rgba(155, 89, 182, 0.4);
-            --theme-status-text: #9b59b6;
-            --theme-status-shadow: rgba(155, 89, 182, 0.5);
-            --theme-ls-bg-start: #1e0030; --theme-ls-bg-mid: #3b0060; --theme-ls-bg-end: #5d0090;
-            --theme-ls-logo-color: #9b59b6; --theme-ls-text-color: #e6e0f0;
-            --theme-ls-glow-main: rgba(155, 89, 182, 0.8); --theme-ls-glow-secondary: rgba(142, 68, 173, 0.7); --theme-ls-glow-tertiary: rgba(189, 195, 199, 0.9);
-        }
-
-        /* Earth Tones */
-        body.theme-earth-tones {
-            --theme-bg-primary: #2d231e;
-            --theme-bg-secondary: #4a3e36;
-            --theme-bg-tertiary: #6c5a52;
-            --theme-text-color: #f5f0ed;
-            --theme-heading-color: #f0ebe8;
-            --theme-accent-primary: #9d8189; /* Rose Gold */
-            --theme-accent-secondary: #8e7178;
-            --theme-accent-tertiary: #b0a0a5;
-            --theme-panel-bg: rgba(157, 129, 137, 0.08);
-            --theme-border-color: rgba(157, 129, 137, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.3);
-            --theme-glow-color: rgba(157, 129, 137, 0.7);
-            --theme-status-bg: rgba(157, 129, 137, 0.15);
-            --theme-status-border: rgba(157, 129, 137, 0.4);
-            --theme-status-text: #c0a8ae;
-            --theme-status-shadow: rgba(157, 129, 137, 0.5);
-            --theme-ls-bg-start: #2d231e; --theme-ls-bg-mid: #4a3e36; --theme-ls-bg-end: #6c5a52;
-            --theme-ls-logo-color: #9d8189; --theme-ls-text-color: #f5f0ed;
-            --theme-ls-glow-main: rgba(157, 129, 137, 0.8); --theme-ls-glow-secondary: rgba(142, 113, 120, 0.7); --theme-ls-glow-tertiary: rgba(176, 160, 165, 0.9);
-        }
-
-        /* NEW PREMIUM THEMES BELOW */
-
-        /* Emerald Night */
-        body.theme-emerald-night {
-            --theme-bg-primary: #0a1a1a;
-            --theme-bg-secondary: #1a3a3a;
-            --theme-bg-tertiary: #2b5b5b;
-            --theme-text-color: #e0fdfd;
-            --theme-heading-color: #f0ffff;
-            --theme-accent-primary: #00e676; /* Emerald Green */
-            --theme-accent-secondary: #ffd700; /* Gold */
-            --theme-accent-tertiary: #4dffff;
-            --theme-panel-bg: rgba(0, 230, 118, 0.08);
-            --theme-border-color: rgba(0, 230, 118, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(0, 230, 118, 0.7);
-            --theme-status-bg: rgba(0, 230, 118, 0.15);
-            --theme-status-border: rgba(0, 230, 118, 0.4);
-            --theme-status-text: #00ff99;
-            --theme-status-shadow: rgba(0, 230, 118, 0.5);
-            --theme-ls-bg-start: #0a1a1a; --theme-ls-bg-mid: #1a3a3a; --theme-ls-bg-end: #2b5b5b;
-            --theme-ls-logo-color: #00e676; --theme-ls-text-color: #e0fdfd;
-            --theme-ls-glow-main: rgba(0, 230, 118, 0.8); --theme-ls-glow-secondary: rgba(255, 215, 0, 0.7); --theme-ls-glow-tertiary: rgba(77, 255, 255, 0.9);
-        }
-
-        /* Crimson Velvet */
-        body.theme-crimson-velvet {
-            --theme-bg-primary: #2a0505;
-            --theme-bg-secondary: #4d0a0a;
-            --theme-bg-tertiary: #700f0f;
-            --theme-text-color: #f7e0e0;
-            --theme-heading-color: #ffe8e8;
-            --theme-accent-primary: #a82020; /* Deep Crimson */
-            --theme-accent-secondary: #f2e0c9; /* Muted Gold/Cream */
-            --theme-accent-tertiary: #b08d5b;
-            --theme-panel-bg: rgba(168, 32, 32, 0.08);
-            --theme-border-color: rgba(168, 32, 32, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(168, 32, 32, 0.7);
-            --theme-status-bg: rgba(168, 32, 32, 0.15);
-            --theme-status-border: rgba(168, 32, 32, 0.4);
-            --theme-status-text: #ff6666;
-            --theme-status-shadow: rgba(168, 32, 32, 0.5);
-            --theme-ls-bg-start: #2a0505; --theme-ls-bg-mid: #4d0a0a; --theme-ls-bg-end: #700f0f;
-            --theme-ls-logo-color: #a82020; --theme-ls-text-color: #f7e0e0;
-            --theme-ls-glow-main: rgba(168, 32, 32, 0.8); --theme-ls-glow-secondary: rgba(242, 224, 201, 0.7); --theme-ls-glow-tertiary: rgba(176, 141, 91, 0.9);
-        }
-
-        /* Sapphire Dawn */
-        body.theme-sapphire-dawn {
-            --theme-bg-primary: #0a0a2a;
-            --theme-bg-secondary: #1a1a4d;
-            --theme-bg-tertiary: #2b2b70;
-            --theme-text-color: #e0f8ff;
-            --theme-heading-color: #e8ffff;
-            --theme-accent-primary: #4d9eff; /* Bright Sapphire */
-            --theme-accent-secondary: #aaffff; /* Icy Blue */
-            --theme-accent-tertiary: #cccccc; /* Silver */
-            --theme-panel-bg: rgba(77, 158, 255, 0.08);
-            --theme-border-color: rgba(77, 158, 255, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(77, 158, 255, 0.7);
-            --theme-status-bg: rgba(77, 158, 255, 0.15);
-            --theme-status-border: rgba(77, 158, 255, 0.4);
-            --theme-status-text: #66bbff;
-            --theme-status-shadow: rgba(77, 158, 255, 0.5);
-            --theme-ls-bg-start: #0a0a2a; --theme-ls-bg-mid: #1a1a4d; --theme-ls-bg-end: #2b2b70;
-            --theme-ls-logo-color: #4d9eff; --theme-ls-text-color: #e0f8ff;
-            --theme-ls-glow-main: rgba(77, 158, 255, 0.8); --theme-ls-glow-secondary: rgba(170, 255, 255, 0.7); --theme-ls-glow-tertiary: rgba(204, 204, 204, 0.9);
-        }
-
-        /* Amethyst Haze */
-        body.theme-amethyst-haze {
-            --theme-bg-primary: #2e1a3a;
-            --theme-bg-secondary: #472c57;
-            --theme-bg-tertiary: #604070;
-            --theme-text-color: #f5e6ff;
-            --theme-heading-color: #fae8ff;
-            --theme-accent-primary: #a85dff; /* Amethyst */
-            --theme-accent-secondary: #ff80ff; /* Pink */
-            --theme-accent-tertiary: #d0b0ff;
-            --theme-panel-bg: rgba(168, 93, 255, 0.08);
-            --theme-border-color: rgba(168, 93, 255, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(168, 93, 255, 0.7);
-            --theme-status-bg: rgba(168, 93, 255, 0.15);
-            --theme-status-border: rgba(168, 93, 255, 0.4);
-            --theme-status-text: #cc99ff;
-            --theme-status-shadow: rgba(168, 93, 255, 0.5);
-            --theme-ls-bg-start: #2e1a3a; --theme-ls-bg-mid: #472c57; --theme-ls-bg-end: #604070;
-            --theme-ls-logo-color: #a85dff; --theme-ls-text-color: #f5e6ff;
-            --theme-ls-glow-main: rgba(168, 93, 255, 0.8); --theme-ls-glow-secondary: rgba(255, 128, 255, 0.7); --theme-ls-glow-tertiary: rgba(208, 176, 255, 0.9);
-        }
-
-        /* Golden Hour */
-        body.theme-golden-hour {
-            --theme-bg-primary: #3d2a0a;
-            --theme-bg-secondary: #5e471a;
-            --theme-bg-tertiary: #7d632a;
-            --theme-text-color: #fffbe0;
-            --theme-heading-color: #fff9c0;
-            --theme-accent-primary: #ffc107; /* Amber Gold */
-            --theme-accent-secondary: #ff9800; /* Orange */
-            --theme-accent-tertiary: #8d6e63; /* Brown */
-            --theme-panel-bg: rgba(255, 193, 7, 0.08);
-            --theme-border-color: rgba(255, 193, 7, 0.25);
-            --theme-shadow-color: rgba(0, 0, 0, 0.4);
-            --theme-glow-color: rgba(255, 193, 7, 0.7);
-            --theme-status-bg: rgba(255, 193, 7, 0.15);
-            --theme-status-border: rgba(255, 193, 7, 0.4);
-            --theme-status-text: #ffcc33;
-            --theme-status-shadow: rgba(255, 193, 7, 0.5);
-            --theme-ls-bg-start: #3d2a0a; --theme-ls-bg-mid: #5e471a; --theme-ls-bg-end: #7d632a;
-            --theme-ls-logo-color: #ffc107; --theme-ls-text-color: #fffbe0;
-            --theme-ls-glow-main: rgba(255, 193, 7, 0.8); --theme-ls-glow-secondary: rgba(255, 152, 0, 0.7); --theme-ls-glow-tertiary: rgba(141, 110, 99, 0.9);
-        }
-
-
-        /* --- END THEME DEFINITIONS --- */
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--theme-bg-primary);
-            color: var(--theme-text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(145deg, #0d0d1a 0%, #1a0f2b 50%, #0d0d1a 100%); /* Deeper, more complex gradient */
+            color: #E0E0E0; /* Softer white for text */
             min-height: 100vh;
-            overflow: hidden; /* Ensure this is set for the background effects */
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
             position: relative;
-            z-index: 1; /* Ensure body content is above background */
-            transition: background-color 0.5s ease; /* Smooth theme transition */
+            animation: backgroundShift 20s ease infinite alternate; /* Subtle background animation */
         }
 
-        /* Galaxy Background Effect - Uses generic theme variables */
-        .galaxy-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top left, var(--theme-bg-secondary) 0%, transparent 50%),
-                        radial-gradient(circle at bottom right, var(--theme-bg-primary) 0%, transparent 50%);
-            overflow: hidden;
-            z-index: -1; /* Behind content */
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
 
-        .star {
-            position: absolute;
-            background-color: var(--theme-accent-primary); /* Stars use accent */
-            border-radius: 50%;
-            animation: twinkle linear infinite;
-        }
-
-        .nebula-layer {
-            position: absolute;
-            opacity: 0.4;
-            animation: float linear infinite alternate;
-            filter: blur(50px);
-        }
-
-        .nebula-layer.pink {
-            background: radial-gradient(circle at center, var(--theme-accent-secondary) 0%, transparent 70%);
-        }
-
-        .nebula-layer.blue {
-            background: radial-gradient(circle at center, var(--theme-accent-tertiary) 0%, transparent 70%);
-        }
-
-        .nebula-layer.purple {
-            background: radial-gradient(circle at center, var(--theme-bg-tertiary) 0%, transparent 70%);
-        }
-
-        .orb {
-            position: absolute;
-            background: radial-gradient(circle, var(--theme-glow-color) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.6;
-            filter: blur(40px);
-            animation: pulse 6s infinite alternate;
-        }
-
-        /* Loading Screen - Uses generic theme variables */
-        .loading-screen {
+        /* Loading Screen */
+        #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--theme-ls-bg-start), var(--theme-ls-bg-mid), var(--theme-ls-bg-end));
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            transition: opacity 1s ease-in-out, background 0.5s ease;
-        }
-
-        .loading-container {
-            text-align: center;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        .loading-logo {
-            font-family: 'VT323', monospace;
-            font-size: 8em;
-            color: var(--theme-ls-logo-color);
-            text-shadow: 0 0 40px var(--theme-ls-glow-main), 0 0 80px var(--theme-ls-glow-secondary);
-            margin-bottom: 30px;
-            letter-spacing: 5px;
-            animation: glitch 2s infinite alternate, pulseGlow 3s infinite alternate;
-        }
-
-        .progress-bar-container {
-            width: 300px;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-            margin-top: 40px;
-            position: relative;
-            border: 1px solid var(--theme-ls-text-color);
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--theme-progress-start), var(--theme-progress-end));
-            border-radius: 10px;
-            transition: width 0.5s ease-out, background 0.5s ease;
-            box-shadow: 0 0 15px var(--theme-ls-glow-secondary);
-        }
-
-        .progress-text {
-            font-family: 'Poppins', sans-serif;
-            color: var(--theme-ls-text-color);
-            font-size: 1.1em;
-            margin-top: 15px;
-            text-shadow: 0 0 10px var(--theme-ls-glow-main);
-            letter-spacing: 1px;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--theme-bg-secondary); /* Slightly opaque background */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 15px 0;
-            box-shadow: 0 2px 15px var(--theme-shadow-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 50; /* Above content, below loading screen */
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background: var(--theme-bg-primary); /* Darker on scroll */
-        }
-
-        .nav-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-list li a {
-            color: var(--theme-text-color);
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            padding: 10px 15px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-list li a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--theme-accent-primary), transparent);
-            transition: left 0.3s ease;
-            z-index: -1;
-            opacity: 0.2;
-        }
-
-        .nav-list li a:hover::before {
-            left: 0;
-        }
-
-        .nav-list li a:hover {
-            color: var(--theme-accent-primary);
-            text-shadow: 0 0 15px var(--theme-glow-color);
-        }
-
-        /* Page Content */
-        .content {
-            text-align: center;
-            margin-top: 150px;
-            padding: 20px; /* Reduced padding */
-            width: 80%; /* Reduced width */
-            max-width: 700px; /* Reduced max-width for overall content area */
-            display: none;
-            position: relative;
-            z-index: 10;
-        }
-
-        .content.active {
-            display: block;
-            animation: fadeIn 1s ease-out;
-        }
-
-        h1 {
-            font-size: 3.5em;
-            color: var(--theme-heading-color);
-            text-shadow: 0 0 25px var(--theme-glow-color);
-            margin-bottom: 20px;
-            animation: slideInTop 1s ease-out;
-            transition: color 0.5s ease, text-shadow 0.5s ease;
-        }
-
-        p {
-            font-size: 1.2em;
-            color: var(--theme-text-color);
-            line-height: 1.6;
-            margin-bottom: 30px;
-            animation: slideInBottom 1s ease-out;
-            transition: color 0.5s ease;
-        }
-
-        /* Removed .call-to-action as requested */
-
-        /* Enhanced Executors Section (Panels) */
-        .executors-section {
-            margin-top: 50px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            /* Reduced gap between panels for more compactness */
-            gap: 10px;
-        }
-
-        .section {
-            background: var(--theme-panel-bg); /* subtle white */
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border: 1px solid var(--theme-border-color);
-            /* Reduced padding for smaller panels */
-            padding: 10px 15px;
-            /* Slightly smaller border-radius */
-            border-radius: 15px;
-            /* Adjusted box shadow */
-            box-shadow: 0 10px 30px var(--theme-shadow-color);
-            /* Reduced bottom margin */
-            margin-bottom: 15px;
-            width: 100%;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .section:hover {
-            /* Adjusted hover transform and shadow */
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 15px 40px var(--theme-shadow-color);
-            border-color: var(--theme-accent-primary);
-        }
-
-        .section h2 {
-            /* Reduced font size for smaller panels */
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--theme-accent-primary);
-            text-shadow: 0 0 30px var(--theme-glow-color);
-            margin: 0;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding-bottom: 10px; /* Reduced padding */
-        }
-
-        .section-icon {
-            /* Reduced icon size */
-            font-size: 1.8em;
-            color: var(--theme-accent-secondary);
-            margin-right: 15px;
-            text-shadow: 0 0 20px var(--theme-glow-color);
-        }
-
-        .dropdown-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
-            opacity: 0;
-            padding-top: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px; /* Reduced gap */
-            width: 100%;
-            position: relative;
-            padding-bottom: 0;
-        }
-
-        .section.open .dropdown-content {
-            /* Further reduced max-height for very compact content */
-            max-height: 60px;
+            z-index: 9999;
             opacity: 1;
-            /* Reduced padding */
-            padding-top: 10px;
-            padding-bottom: 10px;
+            visibility: visible;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out; /* Slower fade */
         }
 
-        .download-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--theme-accent-tertiary);
-            text-decoration: none;
-            /* Reduced font size */
-            font-size: 1em;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .download-link:hover {
-            color: var(--theme-accent-primary);
-            text-shadow: 0 0 10px var(--theme-glow-color);
-        }
-
-        .download-link i {
-            font-size: 1.4em;
-        }
-
-        /* Maintenance Status */
-        .maintenance-status {
-            font-size: 1.8em;
-            color: var(--theme-status-text);
-            font-weight: 600;
-            margin-top: 50px;
-            padding: 20px 30px;
-            background: var(--theme-status-bg);
-            border: 1px solid var(--theme-status-border);
-            border-radius: 15px;
-            box-shadow: 0 0 25px var(--theme-status-shadow);
-            animation: none; /* Removed pulse warning animation */
-            transition: all 0.5s ease;
-        }
-
-
-        /* Footer */
-        .footer {
-            margin-top: 80px;
-            padding: 20px;
-            font-size: 0.9em;
-            color: rgba(var(--theme-text-color-rgb), 0.7); /* Adjust if you parse RGB from hex */
-            animation: fadeIn 1s ease-out 0.5s backwards;
-            transition: color 0.5s ease;
-        }
-
-        .footer p {
-            margin: 0;
-            padding: 0;
-            font-size: 1em; /* Override default p font size for footer */
-        }
-
-        .social-icons {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-        }
-
-        .social-icons a {
-            color: var(--theme-text-color);
-            font-size: 1.8em;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: var(--theme-accent-primary);
-            transform: translateY(-5px) scale(1.1);
-        }
-
-        /* --- Theme Selector Specific Styles --- */
-        #theme-selector-panel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--theme-bg-secondary);
-            border: 1px solid var(--theme-border-color);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px var(--theme-shadow-color);
-            padding: 30px;
-            display: none; /* Hidden by default */
-            flex-direction: column;
-            gap: 20px;
-            z-index: 100; /* Above regular content, below loading screen */
-            width: 80%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
+        #loading-screen.hidden {
             opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease, background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+            visibility: hidden;
         }
 
-        #theme-selector-panel.open {
-            display: flex;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+        .loader {
+            border: 8px solid rgba(138, 43, 226, 0.2);
+            border-top: 8px solid #8A2BE2; /* Primary accent */
+            border-radius: 50%;
+            width: 70px; /* Slightly larger */
+            height: 70px;
+            animation: spin 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite; /* Slower, smoother spin */
         }
 
-        #theme-selector-panel h2 {
-            color: var(--theme-heading-color);
-            text-align: center;
-            margin-bottom: 20px;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .theme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .theme-option {
-            background: var(--theme-bg-primary); /* Use a more distinct color for button bg */
-            border: 1px solid var(--theme-border-color);
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9em;
-            color: var(--theme-text-color);
-        }
-
-        .theme-option:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px var(--theme-shadow-color);
-            border-color: var(--theme-accent-primary);
-        }
-
-        .theme-option.active-theme {
-            border: 2px solid var(--theme-accent-primary);
-            box-shadow: 0 0 15px var(--theme-glow-color);
-            transform: scale(1.05);
+        .loading-text {
+            margin-top: 25px; /* More spacing */
+            font-size: 28px; /* Larger text */
             font-weight: 600;
-        }
-
-        .theme-swatch {
-            width: 50px;
-            height: 25px;
-            border-radius: 5px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            overflow: hidden;
-        }
-        /* Individual swatches for preview */
-        .theme-swatch-1 { background-color: var(--theme-accent-primary); }
-        .theme-swatch-2 { background-color: var(--theme-accent-secondary); }
-        .theme-swatch-3 { background-color: var(--theme-accent-tertiary); }
-        .theme-swatch-gradient {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--theme-accent-primary), var(--theme-accent-secondary));
-        }
-
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideInTop {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideInBottom {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes glitch {
-            0%, 100% {
-                text-shadow: 0 0 40px var(--theme-ls-glow-main), 0 0 80px var(--theme-ls-glow-secondary), 2px 2px 0 var(--theme-ls-text-color), -2px -2px 0 var(--theme-ls-glow-tertiary);
-            }
-            25% {
-                text-shadow: 0 0 40px var(--theme-ls-glow-main), 0 0 80px var(--theme-ls-glow-secondary), -2px 2px 0 var(--theme-ls-text-color), 2px -2px 0 var(--theme-ls-glow-tertiary);
-            }
-            50% {
-                text-shadow: 0 0 40px var(--theme-ls-glow-main), 0 0 80px var(--theme-ls-glow-secondary), 2px -2px 0 var(--theme-ls-text-color), -2px 2px 0 var(--theme-ls-glow-tertiary);
-            }
-            75% {
-                text-shadow: 0 0 40px var(--theme-ls-glow-main), 0 0 80px var(--theme-ls-glow-secondary), -2px -2px 0 var(--theme-ls-text-color), 2px 2px 0 var(--theme-ls-glow-tertiary);
-            }
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px var(--theme-ls-glow-main), 0 0 30px var(--theme-ls-glow-secondary); }
-            50% { box-shadow: 0 0 25px var(--theme-ls-glow-tertiary), 0 0 50px var(--theme-ls-glow-main); }
-        }
-
-        @keyframes twinkle {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.8); opacity: 0.5; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(20px, 30px); }
+            color: #9370DB; /* Lighter purple for text */
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.6); /* More pronounced glow */
+            animation: pulse 1.8s infinite ease-in-out; /* Slower pulse */
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.06); opacity: 0.9; }
+        }
+
+        /* Animated background particles (enhanced) */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* Ensure particles don't block interaction */
+            background: radial-gradient(circle at top left, rgba(138, 43, 226, 0.05) 0%, transparent 60%),
+                        radial-gradient(circle at bottom right, rgba(75, 0, 130, 0.08) 0%, transparent 60%);
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(153, 50, 204, 0.8) 0%, rgba(138, 43, 226, 0.6) 50%, transparent 100%); /* More vibrant glow */
+            border-radius: 50%;
+            animation: float 12s ease-in-out infinite alternate, 
+                       glow 4s ease-in-out infinite alternate,
+                       rotate 8s linear infinite; /* New rotate animation */
+            opacity: 0; /* Start hidden for staggered appearance */
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.7; }
+            33% { transform: translateY(-50px) translateX(30px) scale(1.1); opacity: 1; }
+            66% { transform: translateY(50px) translateX(-40px) scale(0.9); opacity: 0.8; }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(138, 43, 226, 0.8), 0 0 20px rgba(75, 0, 130, 0.5); }
+            to { box-shadow: 0 0 25px rgba(138, 43, 226, 1), 0 0 40px rgba(75, 0, 130, 0.7); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Top Navigation Panel */
+        .top-nav {
+            background: rgba(18, 18, 30, 0.8); /* Darker, more substantial */
+            backdrop-filter: blur(25px); /* Increased blur */
+            border-radius: 40px; /* Even more rounded */
+            margin: 40px auto 30px auto; /* More vertical spacing */
+            padding: 20px 35px; /* More padding */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Increased gap */
+            border: 2px solid rgba(138, 43, 226, 0.6); /* Stronger, more vibrant border */
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.6); /* Deeper shadow */
+            max-width: fit-content;
+            position: relative;
+            z-index: 100;
+            animation: navSlideIn 0.8s ease-out forwards; /* Slide-in animation for nav */
+            transform: translateY(-50px);
+            opacity: 0;
+            animation-delay: 2.2s; /* Appear after loading screen */
+        }
+
+        @keyframes navSlideIn {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-btn {
+            padding: 16px 32px;
+            background: rgba(138, 43, 226, 0.18); /* Slightly more opaque */
+            border: 1px solid rgba(138, 43, 226, 0.5);
+            border-radius: 30px; /* More rounded */
+            color: #E0E0E0;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition curve */
+            font-size: 16px;
+            font-weight: 600;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: rgba(138, 43, 226, 0.3);
+            border-color: rgba(138, 43, 226, 0.8);
+            transform: translateY(-4px) scale(1.03); /* More pronounced lift and scale */
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5); /* Enhanced glow shadow */
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #8A2BE2, #4B0082);
+            border-color: #9370DB; /* More distinct active border */
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.7), 0 0 15px rgba(147, 112, 219, 0.8); /* Stronger, double shadow */
+            transform: translateY(-2px);
+            color: white; /* Ensure text is pure white on active */
+        }
+
+        /* Page Container */
+        .page-container {
+            max-width: 1300px; /* Wider container */
+            margin: 0 auto;
+            padding: 30px; /* More padding */
+            min-height: calc(100vh - 180px); /* Adjust height for new nav margin */
+            position: relative;
+            z-index: 50;
+            width: 100%; /* Ensure it takes full width within max-width */
+        }
+
+        .page {
+            display: none;
+            animation: fadeInScale 0.8s ease-in-out forwards; /* New animation with scale */
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(40px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Page Headers */
+        .page-title {
+            font-size: 60px; /* Even larger title */
+            text-align: center;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #A855F7, #6D28D9, #8B5CF6); /* More dynamic gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 30px rgba(109, 40, 217, 0.6); /* Enhanced glow */
+            line-height: 1.1;
+        }
+
+        .page-subtitle {
+            font-size: 22px; /* Larger subtitle */
+            text-align: center;
+            color: #C0C0C0; /* Slightly brighter gray */
+            margin-bottom: 70px; /* More space */
+            font-weight: 500;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* Executor Grid (main content area) */
+        .executor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Larger, more prominent cards */
+            gap: 35px; /* Increased gap */
+            margin-top: 50px;
+        }
+
+        .executor-card {
+            background: rgba(18, 18, 30, 0.7); /* Darker, more opaque background */
+            backdrop-filter: blur(18px); /* More blur */
+            border-radius: 30px; /* More rounded */
+            padding: 35px; /* More padding */
+            border: 2px solid rgba(138, 43, 226, 0.5); /* Stronger border */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Deeper initial shadow */
+            display: flex; /* Flex for content alignment */
+            flex-direction: column;
+            justify-content: space-between; /* Push button to bottom */
+            min-height: 280px; /* Ensure consistent height */
+        }
+
+        .executor-card::before {
+            content: '';
+            position: absolute;
+            top: -80%;
+            left: -80%;
+            width: 260%;
+            height: 260%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.2), rgba(147, 112, 219, 0.1), transparent); /* More complex, subtle shimmer */
+            transform: rotate(45deg);
+            transition: all 0.7s ease-in-out; /* Slower, more elegant transition */
+            opacity: 0;
+            z-index: 0;
+        }
+
+        .executor-card:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translate(10%, 10%); /* Adjusted sweep for more subtle effect */
+        }
+
+        .executor-card:hover {
+            transform: translateY(-12px) scale(1.03); /* More pronounced lift and scale */
+            border-color: #A855F7; /* Highlight with a brighter purple */
+            box-shadow: 0 25px 50px rgba(138, 43, 226, 0.45); /* Stronger, wider glow shadow */
+        }
+
+        .executor-card h3 {
+            font-size: 30px; /* Larger heading */
+            margin-bottom: 15px;
+            color: #9370DB;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        .executor-card p {
+            color: #D0D0D0; /* Brighter text for readability */
+            margin-bottom: 30px; /* More spacing before button */
+            line-height: 1.7;
+            font-size: 16px;
+            flex-grow: 1; /* Allows paragraph to take available space */
+            position: relative;
+            z-index: 1;
+        }
+
+        .executor-card a {
+            display: inline-block;
+            padding: 14px 30px;
+            background: linear-gradient(45deg, #8A2BE2, #4B0082);
+            color: white;
+            text-decoration: none;
+            border-radius: 18px; /* More rounded */
+            transition: all 0.35s ease;
+            position: relative;
+            z-index: 2;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+            border: 1px solid transparent; /* For smooth border transition */
+        }
+
+        .executor-card a:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 25px rgba(138, 43, 226, 0.6);
+            background: linear-gradient(45deg, #6D28D9, #A855F7); /* More vibrant hover gradient */
+            border-color: #A855F7;
+        }
+
+        /* Coming Soon Features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(18, 18, 30, 0.7);
+            backdrop-filter: blur(18px);
+            border-radius: 30px;
+            padding: 40px; /* More padding */
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #A855F7;
+            box-shadow: 0 18px 35px rgba(138, 43, 226, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 70px; /* Much larger icons */
+            margin-bottom: 25px;
+            display: block;
+            background: linear-gradient(45deg, #A855F7, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+        }
+
+        .feature-card h3 {
+            font-size: 28px; /* Larger heading */
+            margin-bottom: 15px;
+            color: #9370DB;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #D0D0D0;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Interactive Image */
+        .interactive-section {
+            text-align: center;
+            padding: 60px 0; /* More padding */
+        }
+
+        .interactive-image {
+            width: 200px; /* Even larger image */
+            height: 200px;
+            margin: 30px auto;
+            border-radius: 30px; /* More rounded */
+            background: linear-gradient(45deg, #8A2BE2, #4B0082);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px; /* Larger icon */
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); /* Stronger initial shadow */
+            color: white;
+            border: 2px solid rgba(138, 43, 226, 0.7); /* Subtle border */
+        }
+
+        .interactive-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.5); /* Brighter, more visible ripple */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.7s ease-out; /* Slower, more dramatic ripple */
+            z-index: 0;
+            opacity: 1;
+        }
+
+        .interactive-image:hover::before {
+            width: 300px; /* Larger ripple */
+            height: 300px;
+            opacity: 0; /* Fade out ripple */
+        }
+
+        .interactive-image:hover {
+            transform: scale(1.18) rotate(8deg); /* More pronounced scale and rotation */
+            box-shadow: 0 25px 50px rgba(138, 43, 226, 0.7); /* Stronger glow shadow */
+            border-color: #A855F7;
+        }
+
+        .interactive-image span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .upcoming-executor {
+            background: rgba(138, 43, 226, 0.18); /* More subtle background */
+            border: 3px solid rgba(138, 43, 226, 0.7); /* Thicker, more prominent border */
+            border-radius: 30px;
+            padding: 45px; /* More padding */
+            text-align: center;
+            margin-bottom: 60px; /* More margin */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .upcoming-executor h3 {
+            font-size: 38px; /* Larger heading */
+            color: #9370DB;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+        }
+
+        .upcoming-executor p {
+            color: #D0D0D0;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .page-container {
+                padding: 20px;
+            }
+            .page-title {
+                font-size: 50px;
+            }
+            .page-subtitle {
+                font-size: 20px;
+                margin-bottom: 50px;
+            }
+            .executor-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
+            }
+            .executor-card {
+                min-height: 260px;
+                padding: 30px;
+            }
+            .executor-card h3 {
+                font-size: 26px;
+            }
+            .feature-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 25px;
+            }
+            .feature-card {
+                padding: 35px;
+            }
+            .feature-icon {
+                font-size: 60px;
+            }
+            .interactive-image {
+                width: 180px;
+                height: 180px;
+                font-size: 60px;
+            }
+            .upcoming-executor {
+                padding: 40px;
+            }
+            .upcoming-executor h3 {
+                font-size: 34px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                margin: 20px;
+                padding: 15px 25px;
+                gap: 15px;
+                border-radius: 35px;
+                flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            }
+            .nav-btn {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+            .page-title {
+                font-size: 40px;
+            }
+            .page-subtitle {
+                font-size: 18px;
+                margin-bottom: 40px;
+            }
+            .executor-grid, .feature-grid {
+                grid-template-columns: 1fr; /* Single column layout */
+                gap: 20px;
+            }
+            .executor-card, .feature-card {
+                padding: 25px;
+                min-height: auto; /* Allow height to adjust */
+            }
+            .executor-card h3 {
+                font-size: 24px;
+            }
+            .feature-card h3 {
+                font-size: 24px;
+            }
+            .interactive-image {
+                width: 150px;
+                height: 150px;
+                font-size: 50px;
+            }
+            .upcoming-executor {
+                padding: 30px;
+            }
+            .upcoming-executor h3 {
+                font-size: 28px;
+            }
+            .executor-card p, .feature-card p, .upcoming-executor p {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-btn {
+                padding: 10px 18px;
+                font-size: 12px;
+                letter-spacing: 0.8px;
+            }
+            .page-title {
+                font-size: 32px;
+                letter-spacing: 2px;
+            }
+            .page-subtitle {
+                font-size: 15px;
+            }
+            .interactive-image {
+                width: 120px;
+                height: 120px;
+                font-size: 40px;
+            }
+            .executor-card h3 {
+                font-size: 22px;
+            }
+            .feature-card h3 {
+                font-size: 20px;
+            }
+            .executor-card p, .feature-card p, .upcoming-executor p {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
-<body class="theme-default-galaxy"> <div class="galaxy-bg">
-        <div class="star" style="width: 2px; height: 2px; top: 10%; left: 15%; animation-duration: 3s;"></div>
-        <div class="star" style="width: 3px; height: 3px; top: 25%; left: 80%; animation-duration: 4s;"></div>
-        <div class="star" style="width: 2px; height: 2px; top: 50%; left: 40%; animation-duration: 2.5s;"></div>
-        <div class="star" style="width: 4px; height: 4px; top: 70%; left: 60%; animation-duration: 3.5s;"></div>
-        <div class="star" style="width: 2.5px; height: 2.5px; top: 85%; left: 20%; animation-duration: 4.2s;"></div>
-        <div class="star" style="width: 3px; height: 3px; top: 5%; left: 90%; animation-duration: 3.8s;"></div>
-        <div class="star" style="width: 2px; height: 2px; top: 30%; left: 5%; animation-duration: 2.9s;"></div>
-
-        <div class="nebula-layer pink" style="width: 300px; height: 300px; top: 20%; left: 10%; animation-delay: 0s;"></div>
-        <div class="nebula-layer blue" style="width: 400px; height: 400px; top: 60%; left: 70%; animation-delay: 2s;"></div>
-        <div class="nebula-layer purple" style="width: 350px; height: 350px; top: 40%; left: 40%; animation-delay: 1s;"></div>
-
-        <div class="orb" style="width: 150px; height: 150px; top: 30%; left: 20%;"></div>
-        <div class="orb" style="width: 100px; height: 100px; top: 70%; left: 80%;"></div>
-        <div class="orb" style="width: 120px; height: 120px; top: 10%; left: 50%;"></div>
+<body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <div class="loading-text">Loading Rytux...</div>
     </div>
 
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-container">
-            <div class="loading-logo">RYTUX</div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
-            <div class="progress-text" id="progress-text">Loading... ${progress}%</div>
-        </div>
+    <div class="particles" id="particles"></div>
+
+    <div class="top-nav">
+        <div class="nav-btn active" onclick="showPage('home', event)">Home</div>
+        <div class="nav-btn" onclick="showPage('executors', event)">Executors</div>
+        <div class="nav-btn" onclick="showPage('coming-soon', event)">Coming Soon</div>
+        <div class="nav-btn" onclick="showPage('about', event)">About</div>
     </div>
 
-    <nav class="navbar" id="navbar">
-        <ul class="nav-list">
-            <li><a href="#home" class="nav-link">Home</a></li>
-            <li><a href="#executors" class="nav-link">Executors</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#" id="themes-link" class="nav-link">Themes</a></li> </ul>
-    </nav>
+    <div class="page-container">
+        <div id="home" class="page active">
+            <div class="page-title">Rytux</div>
+            <div class="page-subtitle">Your gateway to the ultimate Roblox scripting experience. Discover powerful tools and unlock new possibilities.</div>
+            
+            <div class="interactive-section">
+                <div class="interactive-image" id="interactiveImage"><span>⚡</span></div>
+                <p style="color: #C0C0C0; margin-top: 20px; font-size: 17px; font-weight: 500;">
+                    Hover over our core engine to feel the power!
+                </p>
+            </div>
 
-    <div id="theme-selector-panel">
-        <h2>Select Your Theme</h2>
-        <div class="theme-grid" id="theme-grid">
-            <div class="theme-option" data-theme="default-galaxy">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #00ffcc, #ff00ff);"></div></div>
-                Default Galaxy
-            </div>
-            <div class="theme-option" data-theme="dark-subtle">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #8aa6ff, #a6c0ff);"></div></div>
-                Dark Subtle
-            </div>
-            <div class="theme-option" data-theme="light-clean">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #007bff, #0056b3);"></div></div>
-                Light Clean
-            </div>
-            <div class="theme-option" data-theme="matrix-neon">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #00ff00, #00cc00);"></div></div>
-                Matrix Neon
-            </div>
-            <div class="theme-option" data-theme="ocean-blue">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #41e2ba, #2a9d8f);"></div></div>
-                Ocean Blue
-            </div>
-            <div class="theme-option" data-theme="volcanic-red">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #e63946, #a80f1e);"></div></div>
-                Volcanic Red
-            </div>
-            <div class="theme-option" data-theme="forest-green">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #4CAF50, #388E3C);"></div></div>
-                Forest Green
-            </div>
-            <div class="theme-option" data-theme="cyberpunk">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #00e5ff, #ff00ff);"></div></div>
-                Cyberpunk
-            </div>
-            <div class="theme-option" data-theme="minimal-white">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #2196F3, #1976D2);"></div></div>
-                Minimal White
-            </div>
-            <div class="theme-option" data-theme="autumn-gold">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #d4a74b, #b8860b);"></div></div>
-                Autumn Gold
-            </div>
-            <div class="theme-option" data-theme="pastel-dream">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #a7d9f7, #b3e0ff);"></div></div>
-                Pastel Dream
-            </div>
-            <div class="theme-option" data-theme="monochrome">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #888888, #aaaaaa);"></div></div>
-                Monochrome
-            </div>
-            <div class="theme-option" data-theme="sunset-glow">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #ff6f61, #ff914d);"></div></div>
-                Sunset Glow
-            </div>
-            <div class="theme-option" data-theme="deep-purple">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #9b59b6, #8e44ad);"></div></div>
-                Deep Purple
-            </div>
-            <div class="theme-option" data-theme="earth-tones">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #9d8189, #8e7178);"></div></div>
-                Earth Tones
-            </div>
-            <div class="theme-option" data-theme="emerald-night">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #00e676, #ffd700);"></div></div>
-                Emerald Night
-            </div>
-            <div class="theme-option" data-theme="crimson-velvet">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #a82020, #f2e0c9);"></div></div>
-                Crimson Velvet
-            </div>
-            <div class="theme-option" data-theme="sapphire-dawn">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #4d9eff, #aaffff);"></div></div>
-                Sapphire Dawn
-            </div>
-            <div class="theme-option" data-theme="amethyst-haze">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #a85dff, #ff80ff);"></div></div>
-                Amethyst Haze
-            </div>
-            <div class="theme-option" data-theme="golden-hour">
-                <div class="theme-swatch"><div class="theme-swatch-gradient" style="background: linear-gradient(45deg, #ffc107, #ff9800);"></div></div>
-                Golden Hour
+            <div style="text-align: center; margin-top: 50px; max-width: 900px; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 19px; color: #D0D0D0; line-height: 1.7; font-weight: 500;">
+                    Welcome to **Rytux**, the premier platform for top-tier Roblox exploits and executors. We are committed to providing the most reliable, secure, and feature-rich tools available. Dive into our curated selection or anticipate the launch of our own groundbreaking Rytux Executor, designed to redefine performance and user experience.
+                </p>
             </div>
         </div>
-    </div>
 
-    <div class="content active" id="home">
-        <h1>Welcome to Rytux</h1>
-        <p>Your one-stop destination for Roblox exploits and tools.</p>
-        <div class="maintenance-status">
-            Website Is Currently Working
+        <div id="executors" class="page">
+            <div class="page-title">Elite Executors</div>
+            <div class="page-subtitle">A meticulously curated collection of the most powerful and reliable Roblox executors available.</div>
+            
+            <div class="executor-grid">
+                <div class="executor-card">
+                    <h3>Sirhurt</h3>
+                    <p>A long-standing premium executor known for its stability, robust features, and consistent updates.</p>
+                    <a href="https://sirhurt.net" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Potassium</h3>
+                    <p>Engineered for high performance and compatibility, offering a smooth and advanced scripting environment.</p>
+                    <a href="https://potassium.pro" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Volcano</h3>
+                    <p>Delivers exceptional script execution speed and reliability, trusted by power users for consistent results.</p>
+                    <a href="https://volcano.best" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Velocity</h3>
+                    <p>A modern and efficient executor with a sleek interface, providing fast and fluid script execution.</p>
+                    <a href="https://getvelocity.live" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Swift</h3>
+                    <p>Lightweight yet incredibly powerful, Swift offers a refined user experience and broad script compatibility.</p>
+                    <a href="https://getswift.gg" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Xeno</h3>
+                    <p>A feature-packed executor with extensive functionality and strong community support for diverse scripting needs.</p>
+                    <a href="https://xeno.onl" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Wave</h3>
+                    <p>Combines intuitive design with high-speed performance, making complex scripting accessible and enjoyable.</p>
+                    <a href="https://getwave.gg" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Solara</h3>
+                    <p>A rising star among executors, Solara offers a clean interface and robust script execution capabilities.</p>
+                    <a href="https://getsolara.dev" target="_blank">View Website</a>
+                </div>
+                <div class="executor-card">
+                    <h3>Seliware</h3>
+                    <p>Known for its stability and user-friendly features, Seliware provides a reliable platform for your scripts.</p>
+                    <a href="https://seliware.com/" target="_blank">View Website</a>
+                </div>
+            </div>
         </div>
-        <footer class="footer">
-        </footer>
-    </div>
 
-    <div class="content" id="executors">
-        <h1>Our Powerful Executors</h1>
-        <p>Discover a range of stable and feature-rich Roblox executors designed for an unparalleled experience.</p>
-        <div class="executors-section">
-            <div class="section" data-target="potassium">
-                <div class="section-header">
-                    <h2>Potassium</h2>
-                    <i class="fas fa-chevron-down"></i>
+        <div id="coming-soon" class="page">
+            <div class="page-title">Next-Gen Rytux Executor</div>
+            <div class="page-subtitle">Prepare for an unparalleled experience with our upcoming executor, designed to set new industry standards.</div>
+            
+            <div class="upcoming-executor">
+                <h3>The Future is Now</h3>
+                <p style="color: #D0D0D0; font-size: 17px; line-height: 1.6;">
+                    The **Rytux Executor** is meticulously crafted to be the most advanced Roblox executor on the market. Expect ground-breaking features, unmatched performance, and a user experience refined to perfection. Stay tuned for official launch announcements!
+                </p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🚀</span>
+                    <h3>Unrivaled Performance</h3>
+                    <p>Featuring **100% UNC** and **sUnc** support, our executor ensures superior script compatibility and optimized execution speed.</p>
                 </div>
-                <div class="dropdown-content">
-                    <a href="http://potassium.pro" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Potassium</a>
+                <div class="feature-card">
+                    <span class="feature-icon">🛡️</span>
+                    <h3>Absolute Security</h3>
+                    <p>Developed with state-of-the-art security protocols and rigorously tested to be completely virus-free, ensuring your safety.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🌐</span>
+                    <h3>Seamless Integration</h3>
+                    <p>Enjoy a smooth and intuitive interface with a focus on user experience, making complex actions effortlessly simple.</p>
                 </div>
             </div>
-
-            <div class="section" data-target="seliware">
-                <div class="section-header">
-                    <h2>Seliware</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://Seliware.com" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Seliware</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="sirhurt">
-                <div class="section-header">
-                    <h2>Sirhurt</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://sirhurt.net" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Sirhurt</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="solara">
-                <div class="section-header">
-                    <h2>Solara</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://getsolara.dev" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Solara</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="swift">
-                <div class="section-header">
-                    <h2>Swift</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://getswift.gg" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Swift</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="velocity">
-                <div class="section-header">
-                    <h2>Velocity</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://getvelocity.live" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Velocity</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="volcano">
-                <div class="section-header">
-                    <h2>Volcano</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://Volcano.best" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Volcano</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="wave">
-                <div class="section-header">
-                    <h2>Wave</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://getwave.gg" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Wave</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="xeno">
-                <div class="section-header">
-                    <h2>Xeno</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="http://xeno.onl" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Xeno</a>
-                </div>
-            </div>
-
-            <div class="section" data-target="roblox-external">
-                <div class="section-header">
-                    <h2>Roblox External</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-content">
-                    <a href="https://getronin.xyz/" target="_blank" class="download-link"><i class="fas fa-download"></i> Download Ronin</a>
-                </div>
-            </div>
-
         </div>
-        <footer class="footer">
-        </footer>
-    </div>
 
-    <div class="content" id="about">
-        <h1>About Rytux</h1>
-        <p>Rytux is dedicated to providing high-quality, reliable, and user-friendly Roblox exploitation tools. Our mission is to enhance your Roblox experience responsibly.</p>
-        <p>We are a community-driven platform, constantly evolving to meet the needs of our users and the ever-changing landscape of Roblox security.</p>
-        <footer class="footer">
-        </footer>
+        <div id="about" class="page">
+            <div class="page-title">About Rytux</div>
+            <div class="page-subtitle">Our mission is to empower the Roblox community with the finest and most reliable tools.</div>
+            
+            <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+                <div class="feature-card">
+                    <span class="feature-icon">🌟</span>
+                    <h3>Our Vision</h3>
+                    <p style="font-size: 17px; line-height: 1.8;">
+                        At **Rytux**, we believe in enhancing the Roblox experience by providing access to cutting-edge execution tools. Our platform serves as a trusted hub where users can confidently discover, evaluate, and acquire premium Roblox executors, including our own upcoming flagship product.
+                    </p>
+                </div>
+                
+                <div class="feature-card" style="margin-top: 35px;">
+                    <span class="feature-icon">💡</span>
+                    <h3>Why Trust Rytux?</h3>
+                    <p style="font-size: 17px; line-height: 1.8;">
+                        Every executor listed on Rytux undergoes a meticulous vetting process to ensure its reliability, performance, and security. We are dedicated to transparency and user satisfaction, constantly striving to bring you only the best, alongside our own innovative **Rytux Executor** that promises to redefine industry benchmarks.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-
 
     <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numParticles = 80; // More particles for a denser effect
+
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Randomize initial position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Randomize size
+                const size = Math.random() * 4 + 2; // Size between 2px and 6px
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Randomize animation delays and durations
+                particle.style.animationDelay = Math.random() * 10 + 's'; // Up to 10s delay for staggered start
+                particle.style.animationDuration = (Math.random() * 8 + 8) + 's'; // Duration between 8s and 16s
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Page switching function
+        function showPage(pageId, event) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Remove active class from all nav buttons
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to clicked nav button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+
+        // Interactive image follow mouse
+        document.addEventListener('mousemove', (e) => {
+            const image = document.getElementById('interactiveImage');
+            if (!image) return;
+            
+            const rect = image.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const deltaX = (e.clientX - centerX) * 0.08; // More sensitive movement
+            const deltaY = (e.clientY - centerY) * 0.08;
+            
+            // Cap the movement to avoid going too far
+            const maxTranslate = 25; // Maximum pixels to translate
+            const limitedDeltaX = Math.max(-maxTranslate, Math.min(maxTranslate, deltaX));
+            const limitedDeltaY = Math.max(-maxTranslate, Math.min(maxTranslate, deltaY));
+
+            image.style.transform = `translate(${limitedDeltaX}px, ${limitedDeltaY}px) scale(1.18) rotate(8deg)`;
+        });
+
+        // Reset image position when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const image = document.getElementById('interactiveImage');
+            if (image) {
+                image.style.transform = 'translate(0, 0) scale(1) rotate(0deg)';
+            }
+        });
+
+        // Initialize particles when page loads and handle loading screen
         document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+
             const loadingScreen = document.getElementById('loading-screen');
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            const contents = document.querySelectorAll('.content');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('.section');
-            const navbar = document.getElementById('navbar');
-            const themesLink = document.getElementById('themes-link');
-            const themeSelectorPanel = document.getElementById('theme-selector-panel');
-            const body = document.body;
-
-            // --- Theme Management ---
-            // Define all theme names for JavaScript logic
-            const allThemeNames = [
-                'default-galaxy', 'dark-subtle', 'light-clean', 'matrix-neon',
-                'ocean-blue', 'volcanic-red', 'forest-green', 'cyberpunk',
-                'minimal-white', 'autumn-gold', 'pastel-dream', 'monochrome',
-                'sunset-glow', 'deep-purple', 'earth-tones',
-                // NEW PREMIUM THEMES
-                'emerald-night', 'crimson-velvet', 'sapphire-dawn',
-                'amethyst-haze', 'golden-hour'
-            ];
-
-            function applyTheme(themeName) {
-                // Remove all existing theme classes
-                allThemeNames.forEach(name => {
-                    body.classList.remove(`theme-${name}`);
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                // Optional: Remove loading screen from DOM after transition
+                loadingScreen.addEventListener('transitionend', () => {
+                    loadingScreen.remove();
                 });
-                // Add the selected theme class
-                body.classList.add(`theme-${themeName}`);
-                localStorage.setItem('selectedTheme', themeName);
-
-                // Update active state in selector
-                document.querySelectorAll('.theme-option').forEach(option => {
-                    if (option.dataset.theme === themeName) {
-                        option.classList.add('active-theme');
-                    } else {
-                        option.classList.remove('active-theme');
-                    }
-                });
-            }
-
-            // Load theme from localStorage on page load
-            const savedTheme = localStorage.getItem('selectedTheme');
-            if (savedTheme && allThemeNames.includes(savedTheme)) {
-                applyTheme(savedTheme);
-            } else {
-                applyTheme('default-galaxy'); // Apply default if none saved or invalid
-            }
-
-            // --- Loading Screen Logic ---
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 10) + 1; // Faster loading for demo
-                if (progress > 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        setTimeout(() => {
-                            loadingScreen.style.display = 'none';
-                            document.body.style.overflow = 'auto'; // Re-enable scroll if needed
-                            showContent('home'); // Show default content after loading
-                        }, 1000); // Wait for fade out
-                    }, 500); // Small delay before fade out
-                }
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `Loading... ${progress}%`;
-            }, 100);
-
-            // --- Navigation and Content Switching ---
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (this.id === 'themes-link') {
-                        e.preventDefault();
-                        themeSelectorPanel.classList.toggle('open');
-                        if (themeSelectorPanel.classList.contains('open')) {
-                            // Hide content when theme selector is open
-                            contents.forEach(content => content.classList.remove('active'));
-                        } else {
-                            // Show last active content if closing theme selector
-                            const activeContentId = document.querySelector('.content.active')?.id || 'home';
-                            showContent(activeContentId);
-                        }
-                    } else {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href').substring(1);
-                        showContent(targetId);
-                        themeSelectorPanel.classList.remove('open'); // Close theme panel if navigating
-                    }
-
-                    // Optional: Close dropdowns when navigating
-                    sections.forEach(sec => {
-                        sec.classList.remove('open');
-                        sec.querySelector('.fa-chevron-down')?.classList.remove('fa-chevron-up');
-                        sec.querySelector('.fa-chevron-down')?.classList.add('fa-chevron-down');
-                    });
-                });
-            });
-
-            function showContent(id) {
-                contents.forEach(content => {
-                    content.classList.remove('active');
-                });
-                const activeContent = document.getElementById(id);
-                if (activeContent) {
-                    activeContent.classList.add('active');
-                    activeContent.scrollTop = 0;
-                }
-            }
-
-            // --- Theme Selector Interactions ---
-            document.getElementById('theme-grid').addEventListener('click', function(event) {
-                const target = event.target.closest('.theme-option');
-                if (target) {
-                    const selectedTheme = target.dataset.theme;
-                    applyTheme(selectedTheme);
-                    themeSelectorPanel.classList.remove('open'); // Close panel after selection
-                    const activeContentId = document.querySelector('.content.active')?.id || 'home';
-                    showContent(activeContentId); // Re-show content
-                }
-            });
-
-            // Close theme panel if clicking outside (optional, but good UX)
-            document.addEventListener('click', (event) => {
-                const isClickInsidePanel = themeSelectorPanel.contains(event.target);
-                const isClickOnThemesLink = themesLink.contains(event.target);
-
-                if (themeSelectorPanel.classList.contains('open') && !isClickInsidePanel && !isClickOnThemesLink) {
-                    themeSelectorPanel.classList.remove('open');
-                    const activeContentId = document.querySelector('.content.active')?.id || 'home';
-                    showContent(activeContentId);
-                }
-            });
-
-
-            // --- Accordion-like functionality for sections ---
-            sections.forEach(section => {
-                section.addEventListener('click', function() {
-                    this.classList.toggle('open');
-                    const icon = this.querySelector('.fas');
-                    if (icon) { // Check if icon exists
-                        if (this.classList.contains('open')) {
-                            icon.classList.remove('fa-chevron-down');
-                            icon.classList.add('fa-chevron-up');
-                        } else {
-                            icon.classList.remove('fa-chevron-up');
-                            icon.classList.add('fa-chevron-down');
-                        }
-                    }
-                });
-            });
-
-            // --- Navbar scroll effect (optional, if you want it to change on scroll) ---
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // --- Galaxy background effects (existing logic) ---
-            const orbs = document.querySelectorAll('.orb');
-
-            // Orb parallax effect with reduced sensitivity
-            document.addEventListener('mousemove', function(e) {
-                const mouseX = e.clientX / window.innerWidth;
-                const mouseY = e.clientY / window.innerHeight;
-
-                // Move orbs based on mouse position for parallax
-                orbs.forEach((orb, index) => {
-                    const speed = (index + 1) * 0.5; // Reduced speed
-                    const x = (mouseX - 0.5) * speed * 30; // Reduced movement
-                    const y = (mouseY - 0.5) * speed * 30;
-
-                    orb.style.transform = `translate(${x}px, ${y}px)`;
-                });
-
-                createTrail(e.clientX, e.clientY);
-            });
-
-            document.addEventListener('touchmove', function(e) {
-                e.preventDefault();
-                const touch = e.touches[0];
-                createTrail(touch.clientX, touch.clientY);
-            }, { passive: false });
-
-            // Create trail effect
-            function createTrail(x, y) {
-                const trail = document.createElement('div');
-                trail.className = 'trail';
-                trail.style.left = (x - 4.5) + 'px';
-                trail.style.top = (y - 4.5) + 'px';
-
-                document.body.appendChild(trail);
-
-                setTimeout(() => {
-                    if (trail.parentNode) {
-                        trail.parentNode.removeChild(trail);
-                    }
-                }, 1100);
-            }
+            }, 2000); // Hide loading screen after 2 seconds
         });
     </script>
 </body>
